@@ -5,9 +5,15 @@ services:
     image: grafana/grafana-oss
     container_name: grafana
     restart: on-failure
+    environment:
+      - PROMETHEUS_HOST=${PROMETHEUS_HOST}
+      - PROMETHEUS_PORT=${PROMETHEUS_PORT}
     ports:
       - '${GRAFANA_PORT}:${GRAFANA_PORT}'
     volumes:
+      - "./grafana/config/datasources/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml"
+      - "./grafana/config/dashboards/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml"
+      - "./grafana/config/dashboards/weather_monitoring.json:/var/lib/grafana/dashboards/weather_monitoring.json"
       - "grafana-volume:/var/lib/grafana"
     networks:
       - backend

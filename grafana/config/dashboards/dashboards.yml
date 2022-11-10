@@ -1,0 +1,8 @@
+apiVersion: 1
+
+providers:
+  - name: Weather Monitoring
+    folder: Weather Station
+    type: file
+    options:
+      path:  /var/lib/grafana/dashboards/weather_monitoring.json

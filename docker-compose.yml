@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    restart: on-failure
+    ports:
+      - '${GRAFANA_PORT}:${GRAFANA_PORT}'
+    volumes:
+      - "grafana-volume:/var/lib/grafana"
+    networks:
+      - backend
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: on-failure
+    ports:
+      - '${PROMETHEUS_PORT}:${PROMETHEUS_PORT}'
+    volumes:
+      - './prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yml'
+      - 'prometheus-volume:/prometheus'
+    networks:
+      - backend
+
+  haddock:
+    build:
+      context: haddock
+    image: haddock:latest
+    container_name: haddock
+    restart: on-failure
+    environment:
+      - API_HOST=${API_HOST}
+      - API_PORT=${API_PORT}
+      - PROMETHEUS_EXPORTER_PORT=${PROMETHEUS_EXPORTER_PORT}
+    ports:
+      - '${API_PORT}:${API_PORT}'
+#      - '${PROMETHEUS_EXPORTER_PORT}:${PROMETHEUS_EXPORTER_PORT}'
+    networks:
+      - backend
+
+volumes:
+  grafana-volume:
+  prometheus-volume:
+
+networks:
+  backend:

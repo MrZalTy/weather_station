@@ -42,7 +42,7 @@ services:
       - PROMETHEUS_EXPORTER_PORT=${PROMETHEUS_EXPORTER_PORT}
     ports:
       - '${API_PORT}:${API_PORT}'
-#      - '${PROMETHEUS_EXPORTER_PORT}:${PROMETHEUS_EXPORTER_PORT}'
+      - '${PROMETHEUS_EXPORTER_PORT}:${PROMETHEUS_EXPORTER_PORT}'
     networks:
       - backend
 

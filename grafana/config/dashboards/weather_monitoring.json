@@ -81,7 +81,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "9.2.4",
+      "pluginVersion": "9.2.6",
       "targets": [
         {
           "datasource": {
@@ -89,7 +89,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "builder",
-          "expr": "hw611_altitude{job=\"haddock\"}",
+          "expr": "hw611_altitude{job=\"haddock\", hostname=\"$hostname\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -151,7 +151,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "9.2.4",
+      "pluginVersion": "9.2.6",
       "targets": [
         {
           "datasource": {
@@ -159,7 +159,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "builder",
-          "expr": "hw611_pressure{job=\"haddock\"}",
+          "expr": "hw611_pressure{job=\"haddock\", hostname=\"$hostname\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -221,7 +221,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "9.2.4",
+      "pluginVersion": "9.2.6",
       "targets": [
         {
           "datasource": {
@@ -229,7 +229,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "builder",
-          "expr": "hw611_temperature{scale=\"celcius\"}",
+          "expr": "hw611_temperature{hostname=\"$hostname\", scale=\"celcius\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -291,7 +291,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "9.2.4",
+      "pluginVersion": "9.2.6",
       "targets": [
         {
           "datasource": {
@@ -299,7 +299,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "builder",
-          "expr": "hw611_temperature{scale=\"fahrenheit\"}",
+          "expr": "hw611_temperature{hostname=\"$hostname\", scale=\"fahrenheit\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -410,7 +410,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "builder",
-          "expr": "hw611_altitude{job=\"haddock\"}",
+          "expr": "hw611_altitude{job=\"haddock\", hostname=\"$hostname\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -433,7 +433,10 @@
       "type": "row"
     },
     {
-      "datasource": {},
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -519,7 +522,7 @@
           },
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "hw611_pressure{job=\"haddock\"}",
+          "expr": "hw611_pressure{job=\"haddock\", hostname=\"$hostname\"}",
           "format": "time_series",
           "legendFormat": "__auto",
           "range": true,
@@ -543,7 +546,10 @@
       "type": "row"
     },
     {
-      "datasource": {},
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -629,7 +635,7 @@
           },
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "hw611_temperature{job=\"haddock\", scale=\"celcius\"}",
+          "expr": "hw611_temperature{job=\"haddock\", hostname=\"$hostname\", scale=\"celcius\"}",
           "format": "time_series",
           "legendFormat": "__auto",
           "range": true,
@@ -640,7 +646,10 @@
       "type": "timeseries"
     },
     {
-      "datasource": {},
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -726,7 +735,7 @@
           },
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "hw611_temperature{job=\"haddock\", scale=\"fahrenheit\"}",
+          "expr": "hw611_temperature{job=\"haddock\", hostname=\"$hostname\", scale=\"fahrenheit\"}",
           "format": "time_series",
           "legendFormat": "__auto",
           "range": true,
@@ -742,7 +751,32 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "HW611-001",
+          "value": "HW611-001"
+        },
+        "definition": "label_values(hw611_hostname_info, hostname)",
+        "description": "Hostname of the HW611 sensor.",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Hostname",
+        "multi": false,
+        "name": "hostname",
+        "options": [],
+        "query": {
+          "query": "label_values(hw611_hostname_info, hostname)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 5,
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "now-1h",
